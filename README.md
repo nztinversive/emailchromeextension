@@ -1,1 +1,1 @@
-# emailchromeextension
+# Generate emails chrome extension 

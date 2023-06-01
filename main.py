@@ -73,12 +73,12 @@ reply_template = """
 """
 
 prompt = PromptTemplate(
-    input_variables=["tone", "dialect", "email"],
+    input_variables=["tone", "dialect","email"],
     template=template,
 )
 
 reply_prompt = PromptTemplate(
-    input_variables=["tone", "dialect", "email"],
+    input_variables=["tone", "dialect","email"],
     template=reply_template,
 )
 
@@ -94,6 +94,7 @@ def generate_emails():
     option_tone = data.get('tone', 'Formal')
     option_dialect = data.get('dialect', 'American')
     option_action = data.get('action', 'New Email')
+    option_action = data.get('action', 'Reply')
     openai_api_key = data.get('openai_api_key', '')
 
     llm = load_LLM(openai_api_key=my_secret)
@@ -102,7 +103,6 @@ def generate_emails():
         prompt_with_email = prompt.format(tone=option_tone, dialect=option_dialect, email=email_subject)
     elif option_action == 'Reply':
         prompt_with_email = reply_prompt.format(tone=option_tone, dialect=option_dialect, email=email_subject)
-
     formatted_email = llm(prompt_with_email)
     
     return jsonify({"formatted_email": formatted_email})

@@ -49,8 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
 document.getElementById('generateEmails').addEventListener('click', async () => {
   console.log('Generate Emails button clicked');
+
+  // Show the loading screen
+  document.getElementById('loadingScreen').style.display = 'block';
+  
   try {
     const emailSubject = document.getElementById('emailSubject').value;
     const openaiApiKey = 'your-openai-api-key'; // Replace with your actual API key or store it securely
@@ -86,11 +91,17 @@ document.getElementById('generateEmails').addEventListener('click', async () => 
     } else {
       suggestionsDiv.innerHTML = '<p>No suggestions available.</p>';
     }
+    
+    document.getElementById('loadingScreen').style.display = 'none';
+    
   } catch (error) {
     console.error('Error:', error);
 
     // Save an empty string to the background storage when an error occurs
     chrome.runtime.sendMessage({ type: 'setGeneratedEmail', email: '' });
+
+    // Hide the loading screen
+    document.getElementById('loadingScreen').style.display = 'none';
   }
 });
 
@@ -121,3 +132,10 @@ async function copyToClipboard() {
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
 
 
+// Set the background color of the popup based on the toggle switch state
+function toggleSwitch() {
+  const emailToggle = document.getElementById('emailToggle');
+  emailToggle.checked = !emailToggle.checked;
+}
+// Add event listener for the toggle switch
+document.getElementById('toggleButton').addEventListener('click', toggleSwitch);

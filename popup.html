@@ -147,6 +147,11 @@
       #generateEmails:hover {
         background-color: #0056b3; /* Change hover background color */
       }
+          @keyframes stretchdelay {
+      0%, 40%, 100% { transform: scaleY(0.4); }  
+      20% { transform: scaleY(1.0); }
+    }
+
      
     </style>
   </head>
@@ -158,7 +163,7 @@
     <label for="emailToggle">New Email / Reply:</label>
     <div class="toggle-switch">
       <input type="checkbox" id="emailToggle" name="emailToggle">
-      <span class="slider round"></span>
+     <span class="slider round" id="toggleButton"></span>
     </div>
     <label for="emailSubject">Email Subject:</label>
     <input type="text" id="emailSubject" oninput="showExampleText()" list="previousInputs">
@@ -168,6 +173,17 @@
     <button id="generateEmails">Generate Emails</button>
     <button id="copyButton" style="position: absolute; top: 207px; right: 20px;">Copy Email</button>
     <div id="suggestions"></div>
+        <div id="loadingScreen" style="display: none; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 100;">
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center;">
+        <div class="spinner" style="margin: 20px auto; width: 50px; height: 40px; text-align: center; font-size: 10px;">
+          <div style="background-color: white; height: 100%; width: 6px; display: inline-block;"></div>
+          <div style="background-color: white; height: 100%; width: 6px; display: inline-block; animation: stretchdelay 1.2s infinite ease-in-out;"></div>
+          <div style="background-color: white; height: 100%; width: 6px; display: inline-block; animation: stretchdelay 1.2s infinite ease-in-out;"></div>
+          <div style="background-color: white; height: 100%; width: 6px; display: inline-block; animation: stretchdelay 1.2s infinite ease-in-out;"></div>
+        </div>
+        <p>Generating email...</p>
+      </div>
+    </div>
     <script src="js/popup.js"></script>
   </body>
 </html>
